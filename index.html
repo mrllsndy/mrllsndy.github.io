@@ -828,10 +828,10 @@
       background: linear-gradient(transparent 58%, var(--yellow) 58% 94%, transparent 94%);
     }
     .contact-grid {
-      max-width: 980px;
+      max-width: 560px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 2.4rem;
       text-align: left;
       align-items: stretch;
@@ -890,6 +890,8 @@
       padding: 0.5rem 1.2rem;
       transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
     }
+    .social-link { display: inline-flex; align-items: center; gap: 0.55rem; }
+    .social-ico { width: 1.25rem; height: 1.25rem; flex: 0 0 auto; }
     .social-link:hover { background: var(--yellow); transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
 
     .contact-doodle {
@@ -1362,8 +1364,8 @@
         </ul>
 
         <div class="contact-socials">
-          <a href="https://www.linkedin.com/in/rafael-jade-solis-443936368/" target="_blank" rel="noopener noreferrer" class="social-link">LinkedIn</a>
-          <a href="https://github.com/mrllsndy" target="_blank" rel="noopener noreferrer" class="social-link">GitHub</a>
+          <a href="https://www.linkedin.com/in/rafael-jade-solis-443936368/" target="_blank" rel="noopener noreferrer" class="social-link"><svg class="social-ico social-ico--li" viewBox="0 0 24 24" fill="#0A66C2" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span>LinkedIn</span></a>
+          <a href="https://github.com/mrllsndy" target="_blank" rel="noopener noreferrer" class="social-link"><svg class="social-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span>GitHub</span></a>
         </div>
 
         <!-- original laptop doodle -->
@@ -1377,54 +1379,7 @@
           <path d="M58 90h24"/>
         </svg>
       </div>
-
-      <!-- right: form card -->
-      <div class="contact-card contact-card--form reveal">
-        <p class="card-kicker">Have a role or project in mind?</p>
-        <h3 class="card-heading">Message me</h3>
-
-        <form class="contact-form" id="contactForm" novalidate>
-          <input type="text"  name="first" placeholder="First name" aria-label="First name" required />
-          <input type="text"  name="last"  placeholder="Last name"  aria-label="Last name" required />
-          <input type="email" name="email" placeholder="Email"      aria-label="Email" required />
-          <textarea name="message" placeholder="Message" aria-label="Message" required></textarea>
-          <button type="submit" class="form-btn">Send your message</button>
-          <p class="form-note" id="formNote" role="status"></p>
-        </form>
-      </div>
     </div>
-
-    <script>
-      // Opens the visitor's email app with the message pre-filled (no server needed).
-      document.getElementById('contactForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        var f = e.target;
-        var note = document.getElementById('formNote');
-        var bad = [];
-        ['first', 'last', 'email', 'message'].forEach(function (k) {
-          var el = f[k], v = el.value.trim();
-          var ok = v && (k !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
-          el.setAttribute('aria-invalid', ok ? 'false' : 'true');
-          if (!ok) bad.push(el);
-        });
-        if (bad.length) {
-          note.classList.add('is-error');
-          note.textContent = bad[0].name === 'email' && bad[0].value.trim()
-            ? 'That email address doesn\u2019t look right. Please check it.'
-            : 'Please fill in every field before sending.';
-          bad[0].focus();
-          return;
-        }
-        note.classList.remove('is-error');
-        var name = (f.first.value + ' ' + f.last.value).trim();
-        var subject = 'Portfolio message from ' + name;
-        var body = 'Name: ' + name + '\nEmail: ' + f.email.value + '\n\n' + f.message.value;
-        window.location.href = 'mailto:rafaeljade343@gmail.com'
-          + '?subject=' + encodeURIComponent(subject)
-          + '&body=' + encodeURIComponent(body);
-        document.getElementById('formNote').textContent = 'Opening your email app…';
-      });
-    </script>
   </section>
 
   <!-- ── FOOTER ── -->
